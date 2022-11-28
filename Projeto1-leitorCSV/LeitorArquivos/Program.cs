@@ -1,16 +1,18 @@
-﻿using Application.DTO;
+﻿/* Sistema desenvolvido somente para testes rapidos */
+
+using Application.DTO;
 using Application.Services;
 using Infrastructure.Repository;
 
-var caminho = @"C:\Users\mathe\Downloads\Teste de Dev (geral todos os níveis) (1)\exemplo de arquivo de entrada-abril-2022.csv";
+var caminhoArquivo = @"C:\Users\mathe\Downloads\Teste de Dev (geral todos os níveis) (1)\exemplo de arquivo de entrada-abril-2022.csv";
 
 var caminhoPastaArquivos = @"C:\Users\mathe\Downloads\Teste de Dev (geral todos os níveis) (1)\varios-arquivos";
 
 var servicoFuncionario = new ServicoFuncionario();
 var repositoryDepartamento = new RepositoryDepartamentoCSV();
 var servicoArquivos = new ServicoArquivosCSV();
-
 var servicodepartamento = new ServicoDepartamento(repositoryDepartamento, servicoFuncionario, servicoArquivos);
+
 try
 {
     CaminhoComVariosArquivos();
@@ -40,7 +42,7 @@ async Task CaminhoComVariosArquivos()
 
 async Task CaminhoArquivo()
 {
-    var departamento = await servicodepartamento.BuscarDepartamentoConsolidado(caminho);
+    var departamento = await servicodepartamento.BuscarDepartamentoConsolidado(caminhoArquivo);
 
-    await servicoArquivos.AdicionarDepartamentoConsolidadoEmArquivoJson(departamento, caminho);
+    await servicoArquivos.AdicionarDepartamentoConsolidadoEmArquivoJson(departamento, caminhoArquivo);
 }

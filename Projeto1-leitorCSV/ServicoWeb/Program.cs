@@ -1,20 +1,14 @@
 using Application.Services;
 using Application.Services.Interfaces;
 using Infrastructure.Repository;
+using IOC;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllers();
-
-builder.Services.AddTransient<IServicoArquivosCSV, ServicoArquivosCSV>();
-builder.Services.AddTransient<IServicoFuncionario, ServicoFuncionario>();
-builder.Services.AddTransient<RepositoryDepartamentoCSV, RepositoryDepartamentoCSV>();
-builder.Services.AddTransient<IServicoDepartamento, ServicoDepartamento>();
-
-
-
+builder.Services.RegistrarDependencias();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

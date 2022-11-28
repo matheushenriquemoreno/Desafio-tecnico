@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Application.DTO;
 using Application.Services.Interfaces;
 using Domain.Entities;
-using Utils.ExtensionMethods;
 
 namespace Application.Services
 {
@@ -23,11 +22,11 @@ namespace Application.Services
             /// <summary>
             /// Peguei o padrão informado 8 horas ao dia
             /// </summary>
-            HorasATrabalhar = 9;
+            HorasATrabalhar = 8;
 
             /// <summary>
             /// Peguei o padrão informado 20 dias trabalhados
-            /// </summary>
+            /// </summary>S
             DiasATrabalhar = 20;
         }
 

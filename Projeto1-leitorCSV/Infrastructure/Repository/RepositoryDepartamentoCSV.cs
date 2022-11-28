@@ -79,7 +79,7 @@ namespace Infrastructure.Repository
                 funcionario = listaUsuarios.Where(u => u.Codigo == usuarioCSV.Codigo).FirstOrDefault();
             else
             {
-                funcionario = new Funcionario(usuarioCSV.Nome, usuarioCSV.Codigo, ConverterValorHora(usuarioCSV.ValorHora));
+                funcionario = new Funcionario( usuarioCSV.Nome, usuarioCSV.Codigo, ConverterValorHora(usuarioCSV.ValorHora));
                 listaUsuarios.Add(funcionario);
             }
 

@@ -44,25 +44,6 @@ namespace Domain.Entities
             return horasTrabalhadas;
         }
 
-        public bool PossuiHorasExtra(int quantidadeHoraATrabalhar)
-        {
-            return HorasTrabalhadas().TotalHours > quantidadeHoraATrabalhar;
-        }
-
-        public int HorasExtraEmMinutos (int quantidadeHoraATrabalhar)
-        {
-            var minutosATrabalhar = quantidadeHoraATrabalhar * 60;
-
-            return (int)HorasTrabalhadas().TotalMinutes - minutosATrabalhar;
-        }
-
-        public int HorasDebitoEmMinutos(int quantidadeHoraATrabalhar)
-        {
-            var minutosATrabalhar = quantidadeHoraATrabalhar * 60;
-
-            return minutosATrabalhar - (int)HorasTrabalhadas().TotalMinutes;
-        }
-
         public bool PossuiDebitoHora(int quantidadeHoraATrabalhar)
         {
             return HorasTrabalhadas().TotalHours < quantidadeHoraATrabalhar;
