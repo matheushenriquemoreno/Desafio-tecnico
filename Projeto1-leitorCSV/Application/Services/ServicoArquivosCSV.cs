@@ -42,9 +42,16 @@ namespace Application.Services
             return files;
         }
 
+
+        /// <summary>
+        /// Metodo utilizado para converter varios departamento em um arquivo Json.
+        /// </summary>
+        /// <param name="departamentos"> Lista de departamentos</param>
+        /// <param name="caminho"> Caminho onde vai ser adicionada a pasta com o arquivo Json</param>
+        /// <returns></returns>
         public async Task AdicionarDepartamentosConsolidadosEmArquivoJson(List<DepartamentoConsolidadoDTO> departamentos, string caminho)
         {
-           var json = JsonConvert.SerializeObject(departamentos, Formatting.Indented);
+            var json = JsonConvert.SerializeObject(departamentos, Formatting.Indented);
 
             byte[] dados = new UTF8Encoding().GetBytes(json);
 
@@ -53,6 +60,12 @@ namespace Application.Services
             await EscreverJsonNoArquivo(arquivo.FullName, "Departamentos", dados);
         }
 
+        /// <summary>
+        /// Metodo utilizado para converter somente um departamento em um arquivo Json.
+        /// </summary>
+        /// <param name="departamentos"> Lista de departamentos</param>
+        /// <param name="caminho"> Caminho onde vai ser adicionada a pasta com o arquivo Json</param>
+        /// <returns></returns>
         public async Task AdicionarDepartamentoConsolidadoEmArquivoJson(DepartamentoConsolidadoDTO departamento, string caminho)
         {
             var json = JsonConvert.SerializeObject(departamento, Formatting.Indented);

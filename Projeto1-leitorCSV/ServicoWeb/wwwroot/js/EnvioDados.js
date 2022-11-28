@@ -38,7 +38,6 @@ AdicionarEvento("#limpar", "click", (e) => {
     document.querySelector("#caminho-pasta").value = "";
 })
 
-
 function ModalRetornoInformativo(retorno) {
     document.querySelector(".modal-title").innerHTML = ''
     document.querySelector("#textoRetorno").innerHTML = ''
@@ -76,11 +75,11 @@ function atualizaTabelaDados() {
     let tbody = document.createElement("tbody")
 
     RequisicioesEnviadas.forEach((dado, index) => {
-        
+
         let tr = document.createElement("tr")
 
         let id = document.createElement("th")
-        id.innerHTML =  index + 1
+        id.innerHTML = index + 1
         tr.appendChild(id)
 
         let tipo = document.createElement("td")
@@ -103,7 +102,7 @@ function atualizaTabelaDados() {
 
 async function EnviarDadosArquivo(caminho) {
     const url = `https://localhost:7161/Home/ProcessarUmArquivo?caminhoArquivo=${caminho}`
-  
+
     let consulta = await fetch(url)
 
     return await consulta.json();

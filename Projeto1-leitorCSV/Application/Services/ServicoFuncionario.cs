@@ -72,7 +72,7 @@ namespace Application.Services
             var dias = funcionario.QuantidadeHorasTrabalhadas() / HorasATrabalhar;
 
             if (funcionario.QuantidadeHorasTrabalhadas() == CargaHorariaEstimada)
-                    return DiasATrabalhar;
+                return DiasATrabalhar;
 
             return (int)Math.Floor(dias);
         }

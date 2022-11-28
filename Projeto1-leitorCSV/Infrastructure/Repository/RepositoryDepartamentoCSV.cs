@@ -10,6 +10,7 @@ using Infrastructure.DTOS;
 using System.Runtime.CompilerServices;
 using Domain.Entities;
 using Infrastructure.MapCSV;
+using System.Drawing;
 
 namespace Infrastructure.Repository
 {
@@ -20,16 +21,21 @@ namespace Infrastructure.Repository
 
         }
 
+        /// <summary>
+        /// Faz a conecao com a biblioteca CSVHelper que vai ler o arquivo e envia os dados para action tratar esses dados
+        /// </summary>
+        /// <param name="arquivo"></param>
+        /// <param name="action"></param>
         private void ConecaoComOsDados(string arquivo, Action<DadosUsuarioCSVDTO> action)
         {
-            var config = new CsvConfiguration(new CultureInfo("pt-BR", false))
+            var config = new CsvConfiguration(new CultureInfo("pt-BR"))
             {
                 HasHeaderRecord = true,
                 Delimiter = ";",
-                Encoding = Encoding.UTF8,   
+                Encoding = Encoding.UTF8
             };
 
-            using (var reader = new StreamReader(arquivo))
+            using (var reader = new StreamReader(arquivo, Encoding.UTF8))
             using (var csv = new CsvReader(reader, config))
             {
                 csv.Context.RegisterClassMap<DadosUsuarioCSVDTOMap>();
@@ -44,13 +50,12 @@ namespace Infrastructure.Repository
 
         public async Task<Departamento> BuscarDepartamento(string arquivo)
         {
-
             Departamento departamento = CriaDepartamento(arquivo);
             var listaUsuarios = new List<Funcionario>();
 
             ConecaoComOsDados(arquivo, async (usuario) =>
             {
-                  listaUsuarios = await RetornaFuncionarios(listaUsuarios, usuario);
+                listaUsuarios = await RetornaFuncionarios(listaUsuarios, usuario);
             });
 
             departamento.AdicionarFuncionarios(listaUsuarios);
@@ -62,13 +67,16 @@ namespace Infrastructure.Repository
         {
             var arquivo = new FileInfo(caminho);
 
-            var nomeAquivo = arquivo.Name.Split("-");
+            var nomeAquivo = arquivo.Name.Contains("-") ? arquivo.Name.Split("-") : Array.Empty<string>();
 
-            var nomeDepartamento = nomeAquivo[0] ?? arquivo.Name;
-            var mesvirgencia = nomeAquivo[1] ?? "";
-            var anoVirgencia = nomeAquivo[2]?.Replace(arquivo.Extension,"") ?? "" ;
-         
-            return new Departamento(nomeDepartamento, mesvirgencia, anoVirgencia);
+            if (nomeAquivo.Length >= 2)
+            {
+                var nomeDepartamento = nomeAquivo[0];
+                var mesvirgencia = nomeAquivo[1];
+                var anoVirgencia = nomeAquivo[2].Replace(arquivo.Extension, "");
+                return new Departamento(nomeDepartamento, mesvirgencia, anoVirgencia);
+            }
+            return new Departamento(arquivo.Name.Replace(arquivo.Extension, ""), "", "");
         }
 
         private async Task<List<Funcionario>> RetornaFuncionarios(List<Funcionario> listaUsuarios, DadosUsuarioCSVDTO usuarioCSV)
@@ -79,7 +87,7 @@ namespace Infrastructure.Repository
                 funcionario = listaUsuarios.Where(u => u.Codigo == usuarioCSV.Codigo).FirstOrDefault();
             else
             {
-                funcionario = new Funcionario( usuarioCSV.Nome, usuarioCSV.Codigo, ConverterValorHora(usuarioCSV.ValorHora));
+                funcionario = new Funcionario(usuarioCSV.Nome, usuarioCSV.Codigo, ConverterValorHora(usuarioCSV.ValorHora));
                 listaUsuarios.Add(funcionario);
             }
 
@@ -96,7 +104,7 @@ namespace Infrastructure.Repository
 
             double valor = 0;
             double.TryParse(valorFormatado, out valor);
-            
+
             return valor;
         }
 
@@ -109,7 +117,7 @@ namespace Infrastructure.Repository
 
             var horasAlmocoSeparada = usuarioCSV.Almoco.Split('-');
 
-            if(ExisteHorarioDeAlmoco(usuarioCSV))
+            if (ExisteHorarioDeAlmoco(usuarioCSV))
             {
                 var horaSaidaAlmoco = TimeSpan.Parse(horasAlmocoSeparada[0].Trim());
                 var horaVoltouAlmoco = TimeSpan.Parse(horasAlmocoSeparada[1].Trim());

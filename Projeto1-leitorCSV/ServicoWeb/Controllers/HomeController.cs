@@ -26,7 +26,7 @@ namespace ServicoWeb.Controllers
         [HttpGet]
         public async Task<IActionResult> ProcessarVariosArquivos(string pastaArquivos)
         {
-            if (!servicoArquivos.VerificaSeDiretorioExiste(pastaArquivos)) 
+            if (!servicoArquivos.VerificaSeDiretorioExiste(pastaArquivos))
             {
                 return BadRequest(new { sucess = false, menssage = "Diretorio informado não existente!" });
             }
@@ -64,7 +64,7 @@ namespace ServicoWeb.Controllers
             {
                 var departamento = await servicoDepartamento.BuscarDepartamentoConsolidado(caminhoArquivo);
 
-                await servicoArquivos.AdicionarDepartamentoConsolidadoEmArquivoJson( departamento  , caminhoArquivo);
+                await servicoArquivos.AdicionarDepartamentoConsolidadoEmArquivoJson(departamento, caminhoArquivo);
 
                 return Json(new { sucess = true, menssage = $"O Departamento: {departamento.Departameto}, foi processado com sucesso, o resultado se encontra dentro da pasta de origem informada, na pasta 'Departamentos-Json'." });
             }
