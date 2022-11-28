@@ -55,11 +55,11 @@ namespace Application.Services
         private async Task<DepartamentoConsolidadoDTO> RetornaDepartamentoComDadosConsolidados(Departamento departamento, List<FuncionarioDTO> dadosFuncionario)
         {
             var totalDescontoDepartamento = await CalcularTotalDescontosDepartamento(dadosFuncionario, departamento.Funcionarios);
-            var  totalHorasExtraDepartamento = await CalculaTotalHotasExtraDepartamento(dadosFuncionario, departamento.Funcionarios); 
-            var  totalPagarDepartamento = Math.Round(dadosFuncionario.Select(x => x.TotalReceber).Sum(), 2);
+            var totalHorasExtraDepartamento = await CalculaTotalHotasExtraDepartamento(dadosFuncionario, departamento.Funcionarios);
+            var totalPagarDepartamento = Math.Round(dadosFuncionario.Select(x => x.TotalReceber).Sum(), 2);
 
-            var departamentoDTO = new DepartamentoConsolidadoDTO() 
-            { 
+            var departamentoDTO = new DepartamentoConsolidadoDTO()
+            {
                 AnoVirgencia = departamento.AnoVirgencia,
                 Departameto = departamento.Departameto,
                 MesVirgencia = departamento.MesVirgencia,
@@ -67,7 +67,7 @@ namespace Application.Services
                 TotalPagar = totalPagarDepartamento,
                 TotalExtras = totalHorasExtraDepartamento,
                 Funcionarios = dadosFuncionario,
-                
+
             };
 
             return departamentoDTO;
@@ -108,7 +108,7 @@ namespace Application.Services
 
             await Task.WhenAll(result);
 
-           return quantidadeAPagar;
+            return quantidadeAPagar;
         }
     }
 }
