@@ -28,7 +28,7 @@ namespace ServicoWeb.Controllers
         {
             if (!servicoArquivos.VerificaSeDiretorioExiste(pastaArquivos)) 
             {
-                return BadRequest(new { sucess = false, menssage = "Diretorio coms os arquivos informado não existente" });
+                return BadRequest(new { sucess = false, menssage = "Diretorio informado não existente!" });
             }
 
             if (servicoArquivos.ObterTodosArquivosCSVDeUmDiretorio(pastaArquivos).Length == 0)
@@ -44,7 +44,7 @@ namespace ServicoWeb.Controllers
 
                 var quantidadeDepartamento = departamentos.Count();
 
-                return Json(new { sucess = true, menssage = $"Foram processados {quantidadeDepartamento} departamentos,que se encontram dentro da pasta de origem informada, na pasta 'Departamentos-Json'." });
+                return Json(new { sucess = true, menssage = $"Foram processados {quantidadeDepartamento} departamentos, que se encontram dentro da pasta de origem informada, na pasta 'Departamentos-Json'." });
             }
             catch (Exception ex)
             {
@@ -55,9 +55,9 @@ namespace ServicoWeb.Controllers
         [HttpGet]
         public async Task<IActionResult> ProcessarUmArquivo(string caminhoArquivo)
         {
-            if (!servicoArquivos.VerificaSeArquivoExiste(caminhoArquivo))
+            if (!servicoArquivos.VerificaSeArquivoCSVExiste(caminhoArquivo))
             {
-                return BadRequest(new { sucess = false, menssage = "Arquivo informado não existente" });
+                return BadRequest(new { sucess = false, menssage = "Arquivo informado não existente!" });
             }
 
             try
@@ -66,7 +66,7 @@ namespace ServicoWeb.Controllers
 
                 await servicoArquivos.AdicionarDepartamentoConsolidadoEmArquivoJson( departamento  , caminhoArquivo);
 
-                return Json(new { sucess = true, menssage = $"O Departamento: {departamento.Departameto}, foi processado com sucesso,o resultado se encontra dentro da pasta de origem informada, na pasta 'Departamentos-Json'." });
+                return Json(new { sucess = true, menssage = $"O Departamento: {departamento.Departameto}, foi processado com sucesso, o resultado se encontra dentro da pasta de origem informada, na pasta 'Departamentos-Json'." });
             }
             catch (Exception ex)
             {

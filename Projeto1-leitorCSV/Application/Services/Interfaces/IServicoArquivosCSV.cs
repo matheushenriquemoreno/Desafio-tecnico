@@ -10,7 +10,7 @@ namespace Application.Services.Interfaces
 {
     public interface IServicoArquivosCSV
     {
-        bool VerificaSeArquivoExiste(string caminho);
+        bool VerificaSeArquivoCSVExiste(string caminho);
 
         bool VerificaSeDiretorioExiste(string caminho);
 

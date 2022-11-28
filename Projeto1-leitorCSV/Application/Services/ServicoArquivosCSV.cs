@@ -23,7 +23,7 @@ namespace Application.Services
 
         }
 
-        public bool VerificaSeArquivoExiste(string caminho)
+        public bool VerificaSeArquivoCSVExiste(string caminho)
         {
             return File.Exists(caminho) && caminho.EndsWith(".csv");
         }

@@ -83,12 +83,14 @@ namespace Application.Services
 
             return ((int)Math.Ceiling(dias));
         }
+
         private async Task<int> CalculaDiasExtras(double horasExtras)
         {
             var dias = horasExtras / HorasATrabalhar;
 
             return ((int)Math.Floor(dias));
         }
+
         private async Task<double> CalculaHorasExtraFuncionario(Funcionario funcionario)
         {
 
@@ -99,6 +101,7 @@ namespace Application.Services
 
             return horasExtra;
         }
+
         private async Task<double> CalculaHoraDebitoDeHorasFuncionario(Funcionario funcionario)
         {
 
@@ -109,11 +112,13 @@ namespace Application.Services
 
             return horas;
         }
+
         private async Task<double> CalculaTotalReceberFuncionario(Funcionario funcionario, double valorHora)
         {
             var valorAReceber = funcionario.QuantidadeHorasTrabalhadas() * valorHora;
 
             return Math.Round(valorAReceber, 2);
         }
+
     }
 }
