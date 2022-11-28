@@ -1,0 +1,106 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<h3 class="text-center">Seja bem vindo ao sistema de fechamento do ponto </h3>
+
+<div class="align-content-center center">
+
+    <div>
+        <form id="form-dados">
+            <h5>Deseja enviar uma pasta contendo varios arquivos CSV? ou somente o caminho de um arquivo?</h5>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="ler-pasta-arquivos" value="option1" checked>
+                <label class="form-check-label" for="exampleRadios1">
+                    Pasta Com varios arquivos 
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="ler-somente-arquivo" value="option2">
+                <label class="form-check-label" for="exampleRadios2">
+                    Somente o caminho do arquivo
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label for="caminho-pasta">Digite o caminho da pasta ou caminho do arquivo</label>
+                <input type="text" class="form-control" id="caminho-pasta" aria-describedby="pasta" placeholder="Exemplo: C:\ArquivosCSV ou C:\ArquivosCSV\Departamento Financeiro-Abril-2022.csv">
+            </div>
+
+            <div>
+                <p id="Validainput" class="text-danger"></p>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enviar</button>
+            <a id="limpar" class="btn btn-secondary">limpar</a>
+        </form>
+    </div>
+</div>
+
+<div class="align-content-center center">
+    <h2 class="text-center"> Historico de Processamentos realizados</h2>
+
+    <div class="container table" style="padding: 15px">
+        <table class="table table-striped dadosRequisicoes">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Caminho Arquivo</th>
+                    <th scope="col">Processado com sucesso?</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>0</th>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+
+
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+            </div>
+            <div class="modal-body">
+                <p id="textoRetorno"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="close-modal" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .center{
+        padding: 30px;
+    }
+
+    input {
+        margin-top: 10px;
+    }
+    
+    .table {
+        box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    }
+
+    form {
+        padding: 15px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+    }
+
+
+</style>
+
+<script src="~/js/EnvioDados.js" asp-append-version="true"></script>
