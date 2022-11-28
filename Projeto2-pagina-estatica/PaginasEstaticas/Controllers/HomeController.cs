@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using PaginasEstaticas.Models;
 
 namespace PaginasEstaticas.Controllers
 {
